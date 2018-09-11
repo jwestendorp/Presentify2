@@ -341,7 +341,8 @@ export class Workspace extends React.Component {
     };
 
     return (
-      <div
+      <div 
+        id='background'
         style={{
           backgroundColor: 'rgb(162, 162, 204)',
           position: 'fixed',
@@ -378,6 +379,62 @@ export class Workspace extends React.Component {
           }}
           passive
         />
+
+
+
+        <div
+          id='layerPanel'
+          style={{
+            width: 250,
+            backgroundColor: 'rgb(245, 212, 126)',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+        add layer
+        <hr style={{width: '100%', borderWidth: '1px', borderStyle: 'inset'}}/>
+
+          {Object.entries(component_map).map(([key, comp]) => (
+            <div
+              style={{ paddingLeft: 50, paddingRight: 50, paddingTop: 20 }}
+              onClick={() => {
+                add_component({ type: key });
+              }}
+            >
+              {comp.name}
+            </div>
+          ))}
+
+          <div style={{ height: 50 }} />
+
+         
+         layer list
+         <hr style={{width: '100%', borderWidth: '1px', borderStyle: 'inset'}}/>
+
+
+          <div style={{ maxHeight: '30%', overflowY: 'auto' }}>
+            {items.map((item) => (
+              <div
+                onClick={() => {
+                  this.setState({ selected_item: item.id });
+                }}
+                style={{
+                  backgroundColor:
+                    item.id === selected_item
+                      ? 'rgba(255,255,255,.8)'
+                      : 'transparent',
+                  padding: 16,
+                }}
+              >
+                {item.name}
+              </div>
+            ))}
+          </div>
+
+          </div>
+
+
+
 
         <div
           style={{
@@ -435,7 +492,9 @@ export class Workspace extends React.Component {
             })}
           </div>
         </div>
+
         <div
+          id='formatPanel'
           style={{
             width: 250,
             backgroundColor: 'rgb(245, 212, 126)',
@@ -443,18 +502,10 @@ export class Workspace extends React.Component {
             flexDirection: 'column',
           }}
         >
-          {Object.entries(component_map).map(([key, comp]) => (
-            <div
-              style={{ paddingLeft: 50, paddingRight: 50, paddingTop: 20 }}
-              onClick={() => {
-                add_component({ type: key });
-              }}
-            >
-              {comp.name}
-            </div>
-          ))}
+         
+        format panel / edit layer
+         <hr style={{width: '100%', borderWidth: '1px', borderStyle: 'inset'}}/>
 
-          <div style={{ height: 50 }} />
 
           {items.filter((x) => x.id === selected_item).map((item) => {
             let component_info = component_map[item.type];
@@ -506,24 +557,11 @@ export class Workspace extends React.Component {
 
           <div style={{ height: 50 }} />
 
-          <div style={{ maxHeight: '30%', overflowY: 'auto' }}>
-            {items.map((item) => (
-              <div
-                onClick={() => {
-                  this.setState({ selected_item: item.id });
-                }}
-                style={{
-                  backgroundColor:
-                    item.id === selected_item
-                      ? 'rgba(255,255,255,.8)'
-                      : 'transparent',
-                  padding: 16,
-                }}
-              >
-                {item.name}
-              </div>
-            ))}
-          </div>
+          
+
+
+
+          
         </div>
       </div>
     );
